@@ -1,0 +1,25 @@
+module.exports = {
+    
+        //init twitter params
+        var twit = require('twitter');
+        var config = {
+            consumer_key: 'cawTdQqUijbgrd8LPeQyoteUo',
+            consumer_secret: 'onO5zUrs38VMx2F5cgA2ffSqnv9azhv2t5lEEIkqKh7HMHw62p',
+            access_token_key: '776146037459279873-Vviu9KQ51v8x1BD5YEDBPl61BI5DWPB',
+            access_token_secret: 'ZyZ1ILcnuM08RK7Yhs4ant5HIg6PCO2s0Wr4IiePploDH'
+        };
+        var twitterClient = new twit(config);
+        var params = { q: 'malaria', count: 100 };
+        client.get('statuses/user_timeline', params, function(error, tweets, response) {
+            if (!error) 
+            {
+                 console.log(tweets);
+            }
+};
+
+
+
+
+
+
+

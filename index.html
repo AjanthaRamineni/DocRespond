@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Senticon</title>
+  <title>DOCRESPOND</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,7 +36,6 @@
       color: #fff;
       padding: 100px 25px;
       font-family: Montserrat, sans-serif;
-      margin-bottom: 0px;
   }
   .container-fluid {
       padding: 60px 50px;
@@ -94,13 +93,6 @@
       border: 1px solid #f4511e;
       background-color: #fff !important;
       color: #f4511e;
-  }
-  .btn-custom{
-    background-color: #b8476b;
-    color: #fff;
-  }
-  .btn-custom:hover{
-    background-color: #b8476b;
   }
   .panel-heading {
       color: #fff !important;
@@ -197,40 +189,12 @@
     .logo {
         font-size: 150px;
     }
-    .container-fluid{
-        padding: 0px 50px;
-        margin-top: 20px;
-    }
-    .jumbotron{
-      padding: 60px 25px;
-    }
-    .btn-custom{
-      margin-top: 10px;
-    }
-    .row-right{
-      float: right;
-    }
   }
   .hidden{
     display:none;
   }
   .unhidden{
     display:block;
-  }
-  .row{
-    padding: 10px 5px;
-    text-align: left;
-    overflow: hidden;
-  }
-  .row-left{
-    width: 70%;
-    float: left;
-    text-align: justify;
-  }
-  .tweet-header{
-    font-size: 24px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
   }
   </style>
 </head>
@@ -244,24 +208,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#myPage">SENTICON</a>
+      <a class="navbar-brand" href="#myPage">DOCRESPOND</a>
     </div>
   </div>
 </nav>
 
 <div class="jumbotron text-center">
-  <h1 style="font-size: 30px">Twitter Analysis</h1>
-  <!-- <p>Go ahead and type a keyword!</p> -->
+  <h1 style="font-size: 34px">Twitter sentiment analysis</h1>
+  <p>Go ahead and type a keyword!</p>
   <form class="form-inline" id="search-form">
     <input type="text" name="search" class="form-control" size="50" placeholder="Your keyword or hashtag" required>
-    <button type="submit" class="btn btn-danger btn-custom">Search</button>
+    <button type="submit" class="btn btn-danger">Search</button>
   </form>
 </div>
 
-<footer class="container-fluid text-center"> 
-  <div class="tweet-header">Top Results</div>
+<footer class="container-fluid text-center">
   <div id="tweets">
-    No results found
+
   </div>
 </footer>
 
@@ -315,35 +278,20 @@ $('#search-form').on('submit', function (ev) {
                     dataType: 'json',
                     success: function (data) {
                         $(document).ready(function () {
-                            console.log(data);
-                            var twitterDiv = document.getElementById('tweets');
+                          console.log(data);
                             if (data && data.length==0) {
                                 console.log("Status failed");
-                                twitterDiv.innerHTML("Sorry, please try again.");
+                                $("body").append("Sorry, please try again.");
                             } else {
                               console.log(data);
-                              twitterDiv.innerHTML = "";
+                              var twitterDiv = document.getElementById('tweets');
                               for(var i=0;i<data.length;i++){
                                 console.log(data[i].text);
-                                if(data[i].text !== ""){
-                                  var thisDiv = document.createElement('div');
-                                  thisDiv.className = "row";
-                                  thisDiv.id = "tweet_"+ data[i].id;
-                                  var innerLeft = document.createElement('div');
-                                  var innerRight = document.createElement('div');
-                                  innerLeft.className = "row-left";
-                                  innerRight.className = "row-right";
-                                  innerLeft.innerHTML = data[i].text;
-                                  var anchorBtn = document.createElement('a');
-                                  anchorBtn.href = data[i].redirectUrl;
-                                  anchorBtn.target = "_blank";
-                                  anchorBtn.className = "btn btn-custom";
-                                  anchorBtn.innerHTML = "Respond";
-                                  innerRight.appendChild(anchorBtn);
-                                  thisDiv.appendChild(innerLeft);
-                                  thisDiv.appendChild(innerRight);
-                                  twitterDiv.appendChild(thisDiv);
-                                }
+                                var thisDiv = document.createElement('div');
+                                thisDiv.className = "row";
+                                thisDiv.id = "tweet_"+ data[i].id;
+                                thisDiv.innerHTML = data[i].text;
+                                twitterDiv.appendChild(thisDiv);
                               }
                             }
                         })
@@ -358,6 +306,12 @@ $('#search-form').on('submit', function (ev) {
 });
 
 </script>
+
+<style>
+.row{
+float:left;
+}
+</style>
 
 </body>
 </html>
